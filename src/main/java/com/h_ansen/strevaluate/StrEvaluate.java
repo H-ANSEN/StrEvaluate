@@ -70,5 +70,20 @@ public class StrEvaluate {
         Expression expr = expressionParser.parse(0);
         return expr.evaluate();
     }
+
+    /**
+     * Evaluates an array of mathimatical expressions in string form and 
+     * returns an array of double values corrisponding to expressions evaluated
+     * 
+     * @param expressions an array of expressions to be evaluated
+     * @return an array containing the evaluated result of each expression
+     */
+    public double[] eval(String[] expressions) {
+        double[] results = new double[expressions.length];
+        for (int i = 0; i < expressions.length; i++) {
+            results[i] = eval(expressions[i]);
+        }
+        return results;
+    } 
     
 }
