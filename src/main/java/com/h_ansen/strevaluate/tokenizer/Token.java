@@ -33,6 +33,8 @@ public enum Token {
     POWER       ("^"),
     LEFT_PAREN  ("("),
     RIGHT_PAREN (")"),
+    COMMA       (","),
+    NAME        (""),
     NUMBER      (""),
     END         ("");
 

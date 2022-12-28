@@ -29,13 +29,45 @@ import com.h_ansen.strevaluate.parser.expression.Expression;
 
 public class StrEvaluate {
 
+    private final Parser expressionParser;
+    
     public StrEvaluate() {
-
+        expressionParser = new Parser();
     }
 
+    /**
+     * Adds a new function to this instance of StrEvaluate. If this function
+     * appears in an expression it's {@link Function#run()} method will be 
+     * called using the arguments provided in the expression.
+     * 
+     * @param function the function to add to this instance
+     * @throws IllegalArgumentException if this instance of StrEvaluate already
+     * contains a function with the same name
+     */
+    public void addFunction(Function function) {
+        expressionParser.addFunction(function);        
+    }
+
+    /**
+     * Removes the function with the specified name from this instance of 
+     * StrEvaluate.
+     * 
+     * @param functionName the name of the function to remove
+     */
+    public void removeFunction(String functionName) {
+        expressionParser.removeFunction(functionName);
+    }
+
+    /**
+     * Evaluates a mathimatical expression in string form and returns the 
+     * result of the expression as a double value
+     * 
+     * @param expression an expression to be evaluated
+     * @return the result of the specified expression
+     */
     public double eval(String expression) {
-        Parser parser = new Parser(expression);
-        Expression expr = parser.parse(0);
+        expressionParser.setInput(expression);
+        Expression expr = expressionParser.parse(0);
         return expr.evaluate();
     }
     

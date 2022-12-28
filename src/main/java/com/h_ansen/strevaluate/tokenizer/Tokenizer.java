@@ -26,8 +26,9 @@ package com.h_ansen.strevaluate.tokenizer;
 
 public class Tokenizer {
 
-    public Tokenizer(String input) {
+    public void setInput(String input) {
         this.input = input;
+        this.ip = 0;
     }
 
     public Token nextToken() {
@@ -48,9 +49,10 @@ public class Tokenizer {
             case '/': return Token.DIVIDE;
             case '^': return Token.POWER;
             case '-': return Token.MINUS;
+            case ',': return Token.COMMA;
             default:
                 if (Character.isDigit(c)) return number();
-                //if (Character.isLetter(c)) return function();
+                if (Character.isLetter(c)) return name();
                 throw new RuntimeException("Unexpected character: `" + c + "`");
         }
 
@@ -69,18 +71,20 @@ public class Tokenizer {
         return Token.NUMBER.setData(input.substring(start, ip));
     }
 
-    // private Token function() {
-    //     int start = ip - 1;
-    //     while (!isAtEnd() && Character.isAlphabetic(peek())) ip++;
-    //     return Token.FUNCTION.setData(input.substring(start, ip));
-    // }
+    private Token name() {
+        int start = ip - 1;
+        while (!isAtEnd() && Character.isAlphabetic(peek())) ip++;
+        return Token.NAME.setData(input.substring(start, ip));
+    }
 
     private char peek() {
         return input.charAt(ip);
     }
 
     private boolean isWhitespace() {
-        return Character.isWhitespace(input.charAt(ip));
+        char c = peek();
+        return c == ' ' || c == '\t' || 
+               c == '\r' || c == '\n';
     }
 
     private boolean isAtEnd() {
@@ -88,6 +92,6 @@ public class Tokenizer {
     }
 
     private int ip; // Instruction pointer, points to index of the next token1 in input string
-    private final String input;
+    private String input;
     
 }
