@@ -81,7 +81,7 @@ public class Parser extends Tokenizer {
 
     public void addFunction(Function function) {
         if (FUNCTIONS.containsKey(function.name())) {
-            throw new IllegalArgumentException("Duplicate function name: " + function.name());
+            throw new IllegalArgumentException("Duplicate function name: \"" + function.name() + "\"");
         }
         FUNCTIONS.put(function.name(), function);
     }
