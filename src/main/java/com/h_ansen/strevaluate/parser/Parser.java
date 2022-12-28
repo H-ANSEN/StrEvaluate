@@ -27,8 +27,10 @@ package com.h_ansen.strevaluate.parser;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.h_ansen.strevaluate.Function;
 import com.h_ansen.strevaluate.parser.expression.Expression;
 import com.h_ansen.strevaluate.parser.handler.InfixHandler;
+import com.h_ansen.strevaluate.parser.handler.PrefixFunction;
 import com.h_ansen.strevaluate.parser.handler.InfixOperator;
 import com.h_ansen.strevaluate.parser.handler.PrefixGrouping;
 import com.h_ansen.strevaluate.parser.handler.PrefixHandler;
@@ -41,22 +43,20 @@ public class Parser extends Tokenizer {
 
     private static final Map<Token, InfixHandler> INFIX_HANDLER_MAP = new HashMap<>();
     private static final Map<Token, PrefixHandler> PREFIX_HANDLER_MAP = new HashMap<>();
+    private static final Map<String, Function> FUNCTIONS = new HashMap<>();
 
     static {
         PREFIX_HANDLER_MAP.put(Token.PLUS, new PrefixOperator(6));
         PREFIX_HANDLER_MAP.put(Token.MINUS, new PrefixOperator(6));
         PREFIX_HANDLER_MAP.put(Token.LEFT_PAREN, new PrefixGrouping());
         PREFIX_HANDLER_MAP.put(Token.NUMBER, new PrefixNumber());
+        PREFIX_HANDLER_MAP.put(Token.NAME, new PrefixFunction());
 
         INFIX_HANDLER_MAP.put(Token.PLUS, new InfixOperator(3, false));
         INFIX_HANDLER_MAP.put(Token.MINUS, new InfixOperator(3, false));
         INFIX_HANDLER_MAP.put(Token.MULTIPLY, new InfixOperator(4, false));
         INFIX_HANDLER_MAP.put(Token.DIVIDE, new InfixOperator(4, false));
         INFIX_HANDLER_MAP.put(Token.POWER, new InfixOperator(5, true));
-    }
-
-    public Parser(String input) {
-        super(input);
     }
 
     public Expression parse(int precedence) {
@@ -79,6 +79,38 @@ public class Parser extends Tokenizer {
         return left;
     }
 
+    public void addFunction(Function function) {
+        if (FUNCTIONS.containsKey(function.name())) {
+            throw new IllegalArgumentException("Duplicate function name: \"" + function.name() + "\"");
+        }
+        FUNCTIONS.put(function.name(), function);
+    }
+
+    public void removeFunction(String functionName) {
+        FUNCTIONS.remove(functionName);
+    }
+
+    /**
+     * Returns a map of functions that have been registered to this parser 
+     * where the key is a functions name and the value is the function object
+     * 
+     * @return a map of functions registed to the parser
+     */
+    public Map<String, Function> functions() {
+        return FUNCTIONS;
+    }
+
+    /**
+     * Checks to see if the specified token is the next token in the input
+     * string. If expected matches the next token the token is consumed 
+     * otherwise a RunTimeException is thorwn with the specified message.
+     * 
+     * @param expected the token expected to be next
+     * @param message an error message to display if the next token does not 
+     * match expected
+     * @throws RunTimeException if the expected token does not match the next
+     * token
+     */
     public void consume(Token expected, String message) {
         Token t = nextToken();
         if (t != expected)
