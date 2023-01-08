@@ -52,6 +52,8 @@ public class Parser extends Tokenizer {
         PREFIX_HANDLER_MAP.put(Token.NUMBER, new PrefixNumber());
         PREFIX_HANDLER_MAP.put(Token.NAME, new PrefixFunction());
 
+        INFIX_HANDLER_MAP.put(Token.EQUALS_EQUALS, new InfixOperator(1, false));
+        INFIX_HANDLER_MAP.put(Token.N_EQUALS, new InfixOperator(1, false));
         INFIX_HANDLER_MAP.put(Token.PLUS, new InfixOperator(3, false));
         INFIX_HANDLER_MAP.put(Token.MINUS, new InfixOperator(3, false));
         INFIX_HANDLER_MAP.put(Token.MULTIPLY, new InfixOperator(4, false));

@@ -86,4 +86,19 @@ public class StrEvaluate {
         return results;
     } 
     
+    /**
+     * Evaluates a mathimatical comparison expression and returns a boolean
+     * value based on the result of the expression. For example {@code 1 > 2}
+     * would return a value; {@code false} and {@code 3 == 3} would return
+     * {@code true}.
+     *  
+     * @param expression an expression to evaluate
+     * @return a boolean value based on the result of evaluating the expression
+     */
+    public boolean evalAsBool(String expression) {
+        double result = eval(expression);
+        if (result == 1.0) return true;
+        return false;
+    }
+
 }
