@@ -69,6 +69,7 @@ public class Parser extends Tokenizer {
 
         Expression left = prefixHandler.parsePrefix(this, token);
 
+        // While we do not incounter another prefix operator
         while (precedence < getPrecedence()) {
             token = nextToken();
 
@@ -117,6 +118,10 @@ public class Parser extends Tokenizer {
             throw new RuntimeException(message);   
     }
 
+    /**
+     * @return Returns the precedence of the next token if it is a infix token. 
+     * Otherwise returns a precedence of 0
+     */
     private int getPrecedence() {
         InfixHandler infixHandler = INFIX_HANDLER_MAP.get(peekNextToken());
         if (infixHandler != null) return infixHandler.getPrecedence();

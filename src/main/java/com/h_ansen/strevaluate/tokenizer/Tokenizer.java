@@ -26,6 +26,9 @@ package com.h_ansen.strevaluate.tokenizer;
 
 public class Tokenizer {
 
+    private int ip; // Instruction pointer, points to index of the next token1 in input string
+    private String input;
+
     public void setInput(String input) {
         this.input = input;
         this.ip = 0;
@@ -90,8 +93,5 @@ public class Tokenizer {
     private boolean isAtEnd() {
         return ip >= input.length();
     }
-
-    private int ip; // Instruction pointer, points to index of the next token1 in input string
-    private String input;
     
 }
