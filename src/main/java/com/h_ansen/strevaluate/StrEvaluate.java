@@ -37,7 +37,7 @@ public class StrEvaluate {
 
     /**
      * Adds a new function to this instance of StrEvaluate. If this function
-     * appears in an expression it's {@link Function#run()} method will be 
+     * appears in an expression it's run() method will be 
      * called using the arguments provided in the expression.
      * 
      * @param function the function to add to this instance

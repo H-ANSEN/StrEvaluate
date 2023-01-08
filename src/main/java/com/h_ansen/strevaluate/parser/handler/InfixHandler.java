@@ -45,14 +45,6 @@ public interface InfixHandler {
      */
     int getPrecedence();
 
-    /**
-     * 
-     * 
-     * @param parser the parser
-     * @param left the expression the directly proceeded the infix operator
-     * @param token the infix operator associated with this expression
-     * @return 
-     */
     Expression parseInfix(Parser parser, Expression left, Token token);
     
 }
