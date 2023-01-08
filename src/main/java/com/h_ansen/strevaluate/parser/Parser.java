@@ -111,8 +111,6 @@ public class Parser extends Tokenizer {
      * @param expected the token expected to be next
      * @param message an error message to display if the next token does not 
      * match expected
-     * @throws RunTimeException if the expected token does not match the next
-     * token
      */
     public void consume(Token expected, String message) {
         Token t = nextToken();
