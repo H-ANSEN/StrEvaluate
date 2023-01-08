@@ -37,7 +37,7 @@ public class Tokenizer {
     public Token nextToken() {
 
         // Skip whitespace characters
-        while (!isAtEnd() && isWhitespace()) ip++;
+        while (!isAtEnd() && isWhitespace(peek())) ip++;
 
         // End of expression reached return special end token1
         if (isAtEnd()) return Token.END;
@@ -53,6 +53,10 @@ public class Tokenizer {
             case '^': return Token.POWER;
             case '-': return Token.MINUS;
             case ',': return Token.COMMA;
+            case '=': if (expect('=')) return Token.EQUALS_EQUALS;
+                else throw new RuntimeException("Expected \"=\" after equals (==)");
+            case '!': if (expect('=')) return Token.N_EQUALS;
+                else throw new RuntimeException("Expected \"=\" after bang (!=)");
             default:
                 if (Character.isDigit(c)) return number();
                 if (Character.isLetter(c)) return name();
@@ -68,6 +72,15 @@ public class Tokenizer {
         return t;        
     }
 
+    private char peek() {
+        return input.charAt(ip);
+    }
+
+    private boolean expect(char c) {
+        if (peek() == c) return true;
+        return false;
+    }
+
     private Token number() {
         int start = ip - 1;
         while (!isAtEnd() && (Character.isDigit(peek()) || peek() == '.')) ip++;
@@ -80,12 +93,7 @@ public class Tokenizer {
         return Token.NAME.setData(input.substring(start, ip));
     }
 
-    private char peek() {
-        return input.charAt(ip);
-    }
-
-    private boolean isWhitespace() {
-        char c = peek();
+    private boolean isWhitespace(char c) {
         return c == ' ' || c == '\t' || 
                c == '\r' || c == '\n';
     }

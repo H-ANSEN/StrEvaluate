@@ -26,17 +26,19 @@ package com.h_ansen.strevaluate.tokenizer;
 
 public enum Token {
     
-    PLUS        ("+"),
-    MINUS       ("-"),
-    MULTIPLY    ("*"),
-    DIVIDE      ("/"),
-    POWER       ("^"),
-    LEFT_PAREN  ("("),
-    RIGHT_PAREN (")"),
-    COMMA       (","),
-    NAME        (""),
-    NUMBER      (""),
-    END         ("");
+    EQUALS_EQUALS ("=="),
+    N_EQUALS      ("!="),
+    PLUS          ("+"),
+    MINUS         ("-"),
+    MULTIPLY      ("*"),
+    DIVIDE        ("/"),
+    POWER         ("^"),
+    LEFT_PAREN    ("("),
+    RIGHT_PAREN   (")"),
+    COMMA         (","),
+    NAME          (""),
+    NUMBER        (""),
+    END           ("");
 
     private String data;
 
