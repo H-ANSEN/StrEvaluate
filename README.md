@@ -1,7 +1,7 @@
 # #️⃣ StrEvaluate
 > Dead simple, small, fast expression evaluation in **Java**.
 
-**StrEvaluate** has no external dependencies. Releases are avalible via Github Packages or `.jar` packages, found under "releases". To add and use StrEvaluate as a dependency use:
+**StrEvaluate** has no external dependencies. Releases are avalible via `Github Packages` or `.jar` file found under _"releases"_. To add and use StrEvaluate as a dependency use:
 ```Xml
 <dependency>
   <groupId>com.h_ansen</groupId>
@@ -9,7 +9,7 @@
   <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
-After you have StrEvaluate as a jar or dependency evaluating expressions is as easy as:
+After you have StrEvaluate as a dependency or jar evaluating expressions is as easy as:
 ```Java
 String expression = "(1 + 10) ^ 2";
 double result = new StrEvaluate.eval(expression);
