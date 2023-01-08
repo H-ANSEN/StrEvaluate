@@ -44,11 +44,13 @@ public class OperatorExpression extends Expression {
         double numberR = right.evaluate(); 
 
         switch (operator) {
-            case PLUS:     return numberL + numberR;
-            case MINUS:    return numberL - numberR;
-            case MULTIPLY: return numberL * numberR;
-            case DIVIDE:   return numberL / numberR;
-            case POWER:    return Math.pow(numberL, numberR);
+            case PLUS:          return numberL + numberR;
+            case MINUS:         return numberL - numberR;
+            case MULTIPLY:      return numberL * numberR;
+            case DIVIDE:        return numberL / numberR;
+            case EQUALS_EQUALS: return numberL == numberR ? 1.0 : 0.0;
+            case N_EQUALS:      return numberL != numberR ? 1.0 : 0.0;
+            case POWER:         return Math.pow(numberL, numberR);
             default:
                 throw new UnsupportedOperationException(
                     "Infix expression using operator " + operator + " not supported.");
