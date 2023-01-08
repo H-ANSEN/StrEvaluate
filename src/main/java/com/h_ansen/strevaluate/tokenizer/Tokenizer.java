@@ -54,9 +54,9 @@ public class Tokenizer {
             case '-': return Token.MINUS;
             case ',': return Token.COMMA;
             case '=': if (expect('=')) return Token.EQUALS_EQUALS;
-                else throw new RuntimeException("Expected \"=\" after equals (==)");
+                else throw new RuntimeException("Expected `=` after equals: (==)");
             case '!': if (expect('=')) return Token.N_EQUALS;
-                else throw new RuntimeException("Expected \"=\" after bang (!=)");
+                else throw new RuntimeException("Expected `=` after bang: (!=)");
             default:
                 if (Character.isDigit(c)) return number();
                 if (Character.isLetter(c)) return name();
@@ -77,7 +77,10 @@ public class Tokenizer {
     }
 
     private boolean expect(char c) {
-        if (peek() == c) return true;
+        if (peek() == c) {
+            ip++; // consume expected
+            return true;
+        }
         return false;
     }
 
