@@ -49,6 +49,7 @@
 
     <profiles>
         <profile>
+            <!-- Run profile to generate release builds -->
             <id>release</id>
             <build>
                 <plugins>
