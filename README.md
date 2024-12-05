@@ -36,9 +36,8 @@ boolean result = new StrEvaluate.evalAsBool(expression)
 ## Define your own functions
 Functions can take in a variable number of arguments and return a result. StrEvaluate includes no built-in functions so your free to create only the functions you need!
 ```Java
-
-Function MAX = new Function("max", 2) {
-    public double run(double... args) {
+Function MAX = new Function("max", 2) { // A function named max which takes in two arguments
+    public double run(double... args) { // Override the 'run' function (called when this function is parsed)
         if (args[0] > args[1]) {
             return args[0];
         } else { 
@@ -47,8 +46,13 @@ Function MAX = new Function("max", 2) {
     }
 };
 
+// Create an evaluator instance and add the function we created
 StrEvaluate evaluator = new StrEvaluate();
 evaluator.addFunction(MAX);
 
-double result = evaluator.eval("max(1, 1 + 1)"); // Returns to 2.0
+// The evaluator will now parse the function and use the function call back 'run' to evaluate the expression
+double result = evaluator.eval("max(1, 1 + 1)"); // evaluates to 2.0
+
+// We can even combine our function with other expressions
+boolean result = evaluator.evalAsBool("max(1, 2) == 2") // evaluates to true
 ```
